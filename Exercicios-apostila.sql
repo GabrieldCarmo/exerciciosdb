@@ -1,5 +1,3 @@
-
-
 CREATE DATABASE	IF NOT EXISTS empresa
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_general_ci;
@@ -10,7 +8,7 @@ CREATE TABLE cliente(
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(254) UNIQUE,
-    ativo TINYINT DEFAULT 1,
+    ativo BOOLEAN DEFAULT TRUE,
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB;
 
@@ -142,16 +140,16 @@ SHOW TABLES;
 RENAME TABLE categoria_old TO categoria;
 SHOW TABLES;
 
-INSERT INTO cliente (nome, email, ativo)
+INSERT INTO cliente (nome, email)
 VALUES
-('Ana Souza', 'ana@email.com', 1),
-('Carla Mendes', 'carla@email.com', 1),
-('Ana Souza', 'ana@gmail.com', 1),
-('Bruno Lima', 'bruno@yahoo.com', 1),
-('Carla Dias', 'carla@gmail.com', 1),
-('Diego Silva', 'diego@outlook.com', 0),
-('Eva Santos', null, 1),
-('Fabio Rocha', 'fabio@gmail.com', 1);
+('Ana Souza', 'ana@email.com'),
+('Carla Mendes', 'carla@email.com'),
+('Ana Souza', 'ana@gmail.com'),
+('Bruno Lima', 'bruno@yahoo.com'),
+('Carla Dias', 'carla@gmail.com'),
+('Diego Silva', 'diego@outlook.com'),
+('Eva Santos', null),
+('Fabio Rocha', 'fabio@gmail.com');
 	
 INSERT INTO categoria (nome)
 VALUES
@@ -192,7 +190,7 @@ LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cliente.csv'
 INTO TABLE cliente
 CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';'
-LINES TERMINATED BY '/r/n'
+LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (nome, email, ativo, data_cadastro);
 
@@ -208,14 +206,11 @@ ALTER TABLE pedido
 ADD CONSTRAINT chk_desconto
 CHECK (desconto >= 0 AND desconto <= 100);
 
+-- TESTE: inserção inválida para validar CHECK (desconto > 100)
 INSERT INTO pedido (valor_pedido, id_cliente, desconto)
 VALUES (150.00, 2, 150);
-
-SELECT * FROM pedido where id_cliente = 2;
 
 /* Foi utilizado ON DELETE CASCADE na tabela pedido_item em relação ao pedido, pois os itens não possuem sentido sem o pedido ao qual pertencem. 
 Dessa forma, ao excluir um pedido, todos os seus itens são automaticamente removidos*/
 
 /* A regra ON DELETE RESTRICT é mais segura para a tabela produto, pois impede a exclusão de produtos que ainda estão associados a pedidos. Isso evita a perda de informações importantes e garante a consistência histórica das vendas */
-
-SELECT * FROM cliente;
