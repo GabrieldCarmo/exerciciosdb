@@ -18,24 +18,18 @@ DESCRIBE cliente;
 
 SHOW INDEX FROM cliente;
 
-CREATE TABLE categoria(
-	id_categoria INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) UNIQUE NOT NULL
-)ENGINE=InnoDB;
-
 CREATE TABLE produto(
 	id_produto INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(100) NOT NULL,
 	preco DECIMAL(10,2) NOT NULL CHECK (preco > 0),
     qtd_estoque INT NOT NULL DEFAULT 0,
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    id_categoria int NOT NULL,
-    
-    CONSTRAINT fk_produto_categoria
-		FOREIGN KEY (id_categoria)
-		REFERENCES categoria(id_categoria)
-		ON DELETE RESTRICT
-        ON UPDATE CASCADE
+    id_categoria int NOT NULL
+)ENGINE=InnoDB;
+
+CREATE TABLE categoria(
+	id_categoria INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) UNIQUE NOT NULL
 )ENGINE=InnoDB;
 
 -- PERGUNTAS TÉCNICAS
@@ -72,6 +66,13 @@ Definimos para termos uma garantia de comportamento, como no caso do InnoDB:
 /*8 - Poderia ter redundancia de nomes no sistema, duas categorias calçados por exemplo.*/
 
 /*9 - A tabela não tem integridade e nem se relacionaria com o restante do sistema.*/
+
+ALTER TABLE produto
+ADD CONSTRAINT fk_produto_categoria
+		FOREIGN KEY (id_categoria)
+		REFERENCES categoria(id_categoria)
+		ON DELETE RESTRICT
+        ON UPDATE CASCADE;
 
 /*10 - Utilizamos ON DELETE RESTRICT pois ele garante que nenhuma categoria seja apagada se ainda houver produtos vinculados a ela.*/
 
