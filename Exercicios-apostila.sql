@@ -7,7 +7,7 @@ USE empresa;
 CREATE TABLE cliente(
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(254) UNIQUE,
+    email VARCHAR(254),
     ativo BOOLEAN DEFAULT TRUE,
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB;
@@ -141,16 +141,16 @@ SHOW TABLES;
 RENAME TABLE categoria_old TO categoria;
 SHOW TABLES;
 
-INSERT INTO cliente (nome, email)
+INSERT INTO cliente (nome, email, ativo)
 VALUES
-('Ana Souza', 'ana@email.com'),
-('Carla Mendes', 'carla@email.com'),
-('Ana Souza', 'ana@gmail.com'),
-('Bruno Lima', 'bruno@yahoo.com'),
-('Carla Dias', 'carla@gmail.com'),
-('Diego Silva', 'diego@outlook.com'),
-('Eva Santos', null),
-('Fabio Rocha', 'fabio@gmail.com');
+('Ana Souza', 'ana@email.com', 1),
+('Carla Mendes', 'carla@email.com', 1),
+('Ana Souza', 'ana@gmail.com', 1),
+('Bruno Lima', 'bruno@yahoo.com', 1),
+('Carla Dias', 'carla@gmail.com', 1),
+('Diego Silva', 'diego@outlook.com', 0),
+('Eva Santos', null, 1),
+('Fabio Rocha', 'fabio@gmail.com', 1);
 	
 INSERT INTO categoria (nome)
 VALUES
@@ -215,3 +215,69 @@ VALUES (150.00, 2, 150);
 Dessa forma, ao excluir um pedido, todos os seus itens são automaticamente removidos*/
 
 /* A regra ON DELETE RESTRICT é mais segura para a tabela produto, pois impede a exclusão de produtos que ainda estão associados a pedidos. Isso evita a perda de informações importantes e garante a consistência histórica das vendas */
+
+START TRANSACTION;
+
+INSERT INTO categoria (nome)
+	VALUES("Periféricos"),
+		  ("Smartphones"),
+		  ("Componentes"),
+          ("Games"),
+          ("Impressão");
+
+COMMIT;
+          
+SELECT * FROM categoria ORDER BY id_categoria;
+
+START TRANSACTION;
+
+INSERT INTO cliente (nome, email, ativo)
+	VALUES("Marcos Oliveira", "marcos@email.com", 1),
+		  ("Juliana Costa", "juliana@email.com", 1),
+          ("Ricardo Martins", "ricardo@gmail.com", 1),
+          ("Patrícia Alves", "patricia@yahoo.com", 1),
+          ("Fernando Souza", "fernando@outlook.com", 1),
+          ("Camila Rocha", "camila@gmail.com", 1),
+          ("Lucas Ferreira", "lucas@email.com", 1),
+		  ("Renata Lima", "renata@yahoo.com", 1),
+          ("Gustavo Santos", "gustavo@gmail.com", 0),
+          ("Vanessa Mendes", "vanessa@email.com", 1),
+          ("Tiago Ribeiro", "tiago@outlook.com", 1),
+          ("Amanda Carvalho", "amanda@gmail.com", 1),
+		  ("Bruno Fernandes", "bruno@email.com", 1),
+          ("Daniela Gomes", "daniela@yahoo.com", 0),
+          ("Eduardo Pereira", "eduardo@gmail.com", 1),
+          ("Flávia Nunes", null , 1),
+          ("Henrique Barbosa", "henrique@email.com", 1),
+		  ("Isabela Freitas", "isabela@gmail.com", 1),
+          ("João Pedro Silva", "joaopedro@yahoo.com", 1),
+          ("Karen Rodrigues", "karen@outlook.com", 1);
+
+COMMIT;
+
+SELECT * FROM cliente ORDER BY id_cliente;
+
+START TRANSACTION;
+
+INSERT INTO produto (nome, preco, qtd_estoque, id_categoria)
+	VALUES("Teclado Mecânico RGB", 299.90, 25, 4),
+		  ("Mouse Gamer Pro",  , 40, 4),
+		  ("Webcam Full HD",  , 18, 4),
+		  ("Galaxy S25",  , 12, 5),
+		  ("iPhone 17",  , 8,  5),
+		  ("Memória RAM 16GB",  , 30, 6),
+		  ("SSD NVMe 1TB",  , 22, 6),
+		  ("Fonte 650W",  , 15, 6),
+		  ("Controle Xbox Series",  , 20, 7),
+		  ("Headset Gamer",  , 28, 7),
+		  ("Impressora Multifuncional",  , 10, 8),
+		  ("Toner Compatível",  , 50, 8),
+		  ("Papel Fotográfico A4",  , 80, 8),
+		  ("Livro SQL Avançado",  , 35, 2),
+		  ("Livro Modelagem de Dados",  , 20, 2),
+;
+
+describe produto;
+
+
+          
