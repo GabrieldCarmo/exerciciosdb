@@ -261,23 +261,20 @@ START TRANSACTION;
 
 INSERT INTO produto (nome, preco, qtd_estoque, id_categoria)
 	VALUES("Teclado Mecânico RGB", 299.90, 25, 4),
-		  ("Mouse Gamer Pro",  , 40, 4),
-		  ("Webcam Full HD",  , 18, 4),
-		  ("Galaxy S25",  , 12, 5),
-		  ("iPhone 17",  , 8,  5),
-		  ("Memória RAM 16GB",  , 30, 6),
-		  ("SSD NVMe 1TB",  , 22, 6),
-		  ("Fonte 650W",  , 15, 6),
-		  ("Controle Xbox Series",  , 20, 7),
-		  ("Headset Gamer",  , 28, 7),
-		  ("Impressora Multifuncional",  , 10, 8),
-		  ("Toner Compatível",  , 50, 8),
-		  ("Papel Fotográfico A4",  , 80, 8),
-		  ("Livro SQL Avançado",  , 35, 2),
-		  ("Livro Modelagem de Dados",  , 20, 2),
-;
+		  ("Mouse Gamer Pro", 149.90, 40, 4),
+		  ("Webcam Full HD", 249.90, 18, 4),
+		  ("Galaxy S25", 4899, 12, 5),
+		  ("iPhone 17", 7999, 8,  5),
+		  ("Memória RAM 16GB", 359.90, 30, 6),
+		  ("SSD NVMe 1TB", 499.90, 22, 6),
+		  ("Fonte 650W", 389.90, 15, 6),
+		  ("Controle Xbox Series", 429.90 , 20, 7),
+		  ("Headset Gamer", 319.90, 28, 7),
+		  ("Impressora Multifuncional", 899.90, 10, 8),
+		  ("Toner Compatível", 129.90, 50, 8),
+		  ("Papel Fotográfico A4", 39.90, 80, 8),
+		  ("Livro SQL Avançado", 119.90, 35, 2),
+		  ("Livro Modelagem de Dados", 89.90, 20, 2);
 
-describe produto;
-
-
+COMMIT;
           
