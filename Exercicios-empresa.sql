@@ -1598,5 +1598,151 @@ SELECT id_produto, nome, preco, estoque, id_categoria FROM produto
 
 SELECT id_produto, nome, preco, estoque, id_categoria FROM produto
 	WHERE id_categoria IN (9, 10, 11);
+    
+-- 3
 
+SELECT id_pedido, id_cliente, valor, desconto FROM pedido
+	WHERE desconto IN (5, 15, 20);
+    
+-- 4 
 
+SELECT id_cliente, nome, email, ativo FROM cliente
+	WHERE id_cliente IN (5, 10, 15, 20, 25);
+
+-- EXERCICIO 21
+
+-- 1
+
+SELECT DISTINCT desconto
+	FROM pedido;
+
+-- 2
+
+SELECT DISTINCT ativo
+	FROM cliente;
+    
+-- 3 
+
+SELECT DISTINCT DATE_FORMAT(data_pedido, '%Y')	
+	AS ano FROM pedido;
+    
+-- 4
+
+SELECT DISTINCT id_categoria 
+	FROM produto;
+
+-- EXERCICIO 22
+
+-- 1
+
+SELECT id_cliente, nome, email 
+	FROM cliente ORDER BY nome LIMIT 20;
+
+-- 2
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY preco DESC LIMIT 15;
+    
+-- 3 
+
+SELECT id_pedido, id_cliente, data_pedido, valor 
+	FROM pedido ORDER BY data_pedido DESC LIMIT 20;
+    
+-- 4 
+
+SELECT id_produto, nome, preco, estoque, id_categoria
+	FROM produto ORDER BY id_categoria, nome LIMIT 20;
+    
+-- EXERCICIO 23
+
+-- 1
+
+SELECT id_cliente, nome, email, data_cadastro 
+	FROM cliente ORDER BY data_cadastro ASC LIMIT 5;
+    
+-- 2 
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto ORDER BY preco DESC LIMIT 10 ;
+    
+-- 3 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY estoque ASC LIMIT 5;
+    
+-- 4 
+
+SELECT id_pedido, id_cliente, valor, desconto 
+	FROM pedido ORDER BY valor DESC LIMIT 10;
+    
+-- EXERCICIO 24
+
+-- 1 
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto ORDER BY id_produto ASC LIMIT 10 OFFSET 0;
+    
+-- 2 
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto ORDER BY id_produto ASC LIMIT 10 OFFSET 10;
+
+-- 3 
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto ORDER BY id_produto ASC LIMIT 10 OFFSET 20;
+    
+-- 4 
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto ORDER BY id_produto ASC LIMIT 10 OFFSET 40;
+
+-- EXERCICIO 25
+
+-- 1 
+
+SELECT id_cliente, nome, email, ativo
+	FROM cliente WHERE ativo = 1 AND nome LIKE 'M%' LIMIT 15;
+    
+-- 2 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto WHERE preco >= 200 AND preco <= 800 AND estoque > 30;
+    
+-- 3
+
+SELECT id_pedido, id_cliente, valor, desconto
+	FROM pedido WHERE valor > 1000 AND (desconto = 10 OR desconto = 20) ORDER BY valor DESC LIMIT 20;
+
+-- 4 
+
+SELECT id_cliente, nome, email, data_cadastro 
+	FROM cliente WHERE data_cadastro LIKE '2025%' AND email LIKE '%@gmail.com' order by nome asc;
+    
+-- EXERCICIO 26
+
+-- 1 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY preco DESC LIMIT 10;
+
+-- 2 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY estoque ASC LIMIT 10;
+
+-- 3 
+
+SELECT id_cliente, nome, email, data_cadastro
+	FROM cliente ORDER BY data_cadastro DESC LIMIT 15;
+    
+-- 4 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto WHERE preco > 3000 ORDER BY preco DESC;
+
+-- 5 
+SELECT id_cliente, nome, email, ativo, data_cadastro
+	FROM cliente WHERE ativo = 0 ORDER BY data_cadastro DESC LIMIT 15;
+    
+    
