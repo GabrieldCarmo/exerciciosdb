@@ -1455,13 +1455,17 @@ SELECT data_pedido, valor FROM pedido LIMIT 15;
 
 -- 1 
 SELECT id_cliente, nome, email, ativo  
-	FROM cliente WHERE id_cliente BETWEEN 1 AND 20;
+	FROM cliente WHERE ativo = 1 AND id_cliente BETWEEN 1 AND 20;
 
 -- 2
 SELECT id_cliente, nome, email, ativo 
 	FROM cliente WHERE ativo = 0 AND id_cliente BETWEEN 1 AND 40;
 
 -- 3
+SELECT id_cliente, nome, email, ativo 
+	FROM cliente WHERE data_cadastro >= '2025-01-01' AND data_cadastro <= '2025-06-30';
+    
+-- 4
 SELECT id_cliente, nome, email, ativo 
 	FROM cliente WHERE data_cadastro >= '2026-01-01' AND data_cadastro <= '2026-06-30';
     
@@ -1738,11 +1742,81 @@ SELECT id_cliente, nome, email, data_cadastro
     
 -- 4 
 
-SELECT id_produto, nome, preco, estoque
-	FROM produto WHERE preco > 3000 ORDER BY preco DESC;
+SELECT id_pedido, id_cliente, data_pedido, valor, desconto 
+	FROM pedido ORDER BY valor DESC LIMIT 20;
 
 -- 5 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto WHERE estoque > 0 ORDER BY preco ASC LIMIT 10;
+    
+-- EXERCICIO 27
+
+-- 1
+
+SELECT id_cliente, nome, email, ativo 
+	FROM cliente WHERE email IS NULL ORDER BY nome;
+
+-- 2
+
+SELECT id_produto, nome, preco, estoque 
+	FROM produto WHERE estoque <= 10 ORDER BY estoque ASC LIMIT 25;
+    
+-- 3 
+
+SELECT id_pedido, id_cliente, valor, desconto 
+	FROM pedido WHERE desconto = 0 ORDER BY valor DESC LIMIT 20;
+    
+-- 4 
+
+SELECT id_produto, nome, preco, estoque
+	FROM produto WHERE preco > 3000 ORDER BY preco DESC LIMIT 25;
+
+-- 5 
+
 SELECT id_cliente, nome, email, ativo, data_cadastro
 	FROM cliente WHERE ativo = 0 ORDER BY data_cadastro DESC LIMIT 15;
+
+-- EXERCICIO 28 
+
+-- 1
+SELECT id_cliente, nome, email
+	FROM cliente WHERE email LIKE '%@gmail.com' ORDER BY nome ASC LIMIT 20;
+
+-- 2
+SELECT id_cliente, nome, email
+	FROM cliente WHERE email LIKE '%@outlook.com' ORDER BY nome ASC LIMIT 20;
+
+-- 3
+SELECT id_cliente, nome, email 
+	FROM cliente WHERE nome LIKE 'S%' ORDER BY nome LIMIT 25;
+
+-- 4
+SELECT id_cliente, nome, email, data_cadastro
+	FROM cliente WHERE data_cadastro LIKE '2026%' ORDER BY data_cadastro DESC LIMIT 20;
+
+-- 5
+SELECT id_cliente, nome, email, status
+	FROM cliente WHERE status = 1 AND (nome LIKE 'A%' OR nome LIKE 'B%') LIMIT 25;
     
+-- EXERCICIO 29
+
+-- 1
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY preco ASC LIMIT 20;
     
+-- 2
+SELECT id_produto, nome, preco, estoque
+	FROM produto ORDER BY preco DESC LIMIT 20;
+    
+-- 3
+SELECT id_pedido, id_cliente, data_pedido, valor, desconto
+	FROM pedido ORDER BY valor DESC LIMIT 20;
+    
+-- 4 
+SELECT id_cliente, nome, email, ativo
+	FROM cliente ORDER BY nome ASC LIMIT 20;
+    
+-- 5
+SELECT id_pedido, id_cliente, data_pedido, valor, desconto
+	FROM pedido ORDER BY data_pedido DESC LIMIT 15;
