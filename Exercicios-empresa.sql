@@ -1462,11 +1462,11 @@ SELECT id_cliente, nome, email, ativo
 	FROM cliente WHERE ativo = 0 AND id_cliente BETWEEN 1 AND 40;
 
 -- 3
-SELECT id_cliente, nome, email, ativo 
+SELECT id_cliente, nome, email, data_cadastro
 	FROM cliente WHERE data_cadastro >= '2025-01-01' AND data_cadastro <= '2025-06-30';
     
 -- 4
-SELECT id_cliente, nome, email, ativo 
+SELECT id_cliente, nome, email, data_cadastro
 	FROM cliente WHERE data_cadastro >= '2026-01-01' AND data_cadastro <= '2026-06-30';
     
 -- EXERCICIO 14
@@ -1487,7 +1487,7 @@ SELECT id_produto, nome, preco, estoque FROM produto WHERE estoque <= 10;
 
 -- 1
 SELECT id_produto, nome, preco, estoque 
-	FROM produto WHERE preco > 500 AND estoque < 20
+	FROM produto WHERE preco > 500 AND estoque < 20 
     LIMIT 26;
 
 -- 2 
@@ -1498,14 +1498,12 @@ SELECT id_cliente, nome, email, ativo, data_cadastro FROM cliente
 -- 3
 
 SELECT id_pedido, id_cliente, valor, desconto FROM pedido 
-	WHERE valor > 3000 AND desconto = 10
-    LIMIT 26;
+	WHERE valor > 3000 AND desconto = 10 LIMIT 26;
     
 -- 4
 
 SELECT id_produto, nome, preco, estoque FROM produto 
-	WHERE estoque > 30 AND preco < 300
-    LIMIT 26;
+	WHERE estoque > 30 AND preco < 300;
     
 -- EXERCICIO 16
 
@@ -1563,7 +1561,7 @@ SELECT id_cliente, nome, email, ativo FROM cliente
     
 -- 4
 SELECT COUNT(*) as clientes_sem_email FROM cliente 
-WHERE email IS NULL;
+	WHERE email IS NULL;
 
 -- 5 
 SELECT COUNT(*) as clientes_com_email FROM cliente 
@@ -1623,7 +1621,7 @@ SELECT DISTINCT desconto
 -- 2
 
 SELECT DISTINCT ativo
-	FROM cliente;
+	FROM cliente ORDER BY ativo;
     
 -- 3 
 
@@ -1796,8 +1794,8 @@ SELECT id_cliente, nome, email, data_cadastro
 	FROM cliente WHERE data_cadastro LIKE '2026%' ORDER BY data_cadastro DESC LIMIT 20;
 
 -- 5
-SELECT id_cliente, nome, email, status
-	FROM cliente WHERE status = 1 AND (nome LIKE 'A%' OR nome LIKE 'B%') LIMIT 25;
+SELECT id_cliente, nome, email, ativo
+	FROM cliente WHERE ativo = 1 AND (nome LIKE 'A%' OR nome LIKE 'B%') ORDER BY nome LIMIT 25;
     
 -- EXERCICIO 29
 
