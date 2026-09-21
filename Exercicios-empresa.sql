@@ -1818,3 +1818,104 @@ SELECT id_cliente, nome, email, ativo
 -- 5
 SELECT id_pedido, id_cliente, data_pedido, valor, desconto
 	FROM pedido ORDER BY data_pedido DESC LIMIT 15;
+
+-- EXERCICIO 30 
+
+-- 1
+SELECT p.id_pedido, p.data_pedido, p.valor, c.nome AS cliente 
+	FROM pedido AS p
+    INNER JOIN cliente AS c
+		ON p.id_cliente = c.id_cliente;
+    
+-- 2 
+SELECT p.id_pedido, p.data_pedido, p.valor, c.nome AS cliente 
+	FROM pedido AS p
+    INNER JOIN cliente AS c
+		ON p.id_cliente = c.id_cliente
+    WHERE p.valor > 1000;
+    
+-- EXERCICIO 31
+
+-- 1
+SELECT c.id_cliente, c.nome AS cliente, p.id_pedido, p.data_pedido, p.valor 
+	FROM cliente AS c
+    LEFT JOIN pedido AS p
+		ON c.id_cliente = p.id_cliente;
+    
+-- 2
+SELECT c.id_cliente, c.nome AS cliente, c.email 
+	FROM cliente AS c
+    LEFT JOIN pedido AS p
+		ON c.id_cliente = p.id_cliente
+    WHERE p.id_cliente IS NULL;
+    
+-- EXERCICIO 32
+
+-- 1 
+SELECT c.id_cliente, c.nome AS cliente, p.id_pedido, p.valor 
+	FROM pedido AS p
+    RIGHT JOIN cliente AS c
+		ON c.id_cliente = p.id_cliente;
+
+-- 2
+SELECT c.id_cliente, c.nome AS cliente, c.email, p.id_pedido, p.data_pedido, p.valor 
+	FROM pedido AS p
+    RIGHT JOIN cliente AS c
+		ON c.id_cliente = p.id_cliente
+    WHERE ativo = 1;
+    
+-- EXERCICIO 33
+
+-- 1
+SELECT p.id_pedido, pi.id_produto, pi.quantidade, pi.preco_unitario
+	FROM pedido AS p
+    INNER JOIN pedido_item AS pi
+		ON p.id_pedido = pi.id_pedido;
+    
+-- 2
+SELECT p.id_pedido, pi.id_produto, pi.quantidade, pi.preco_unitario
+	FROM pedido AS p
+    INNER JOIN pedido_item AS pi
+		ON p.id_pedido = pi.id_pedido
+    WHERE pi.quantidade > 1;
+    
+-- EXERCICIO 34
+
+-- 1
+SELECT pe.id_pedido, p.nome AS produto, pi.quantidade, pi.preco_unitario
+	FROM pedido AS pe
+    INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto;
+        
+-- 2
+SELECT pe.id_pedido, p.nome AS produto, pi.quantidade, pi.preco_unitario
+	FROM pedido AS pe
+    INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto
+    WHERE pi.preco_unitario > 1000;
+    
+-- EXERCICIO 35
+
+-- 1 
+SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
+	FROM cliente AS c
+    INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item as pi
+		ON pe.id_pedido = pi.id_pedido;
+        
+-- 2
+SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
+	FROM cliente AS c
+    INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item as pi
+		ON pe.id_pedido = pi.id_pedido
+	WHERE c.ativo = 1 AND
+    pe.data_pedido BETWEEN '2026-01-01' AND '2026-12-31';
+    
+    
