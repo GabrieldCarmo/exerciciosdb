@@ -1862,7 +1862,7 @@ SELECT c.id_cliente, c.nome AS cliente, c.email, p.id_pedido, p.data_pedido, p.v
 	FROM pedido AS p
     RIGHT JOIN cliente AS c
 		ON c.id_cliente = p.id_cliente
-    WHERE ativo = 1;
+    WHERE c.ativo = 1;
     
 -- EXERCICIO 33
 
@@ -1903,9 +1903,9 @@ SELECT pe.id_pedido, p.nome AS produto, pi.quantidade, pi.preco_unitario
 -- 1 
 SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
 	FROM cliente AS c
-    INNER JOIN pedido AS pe
+	INNER JOIN pedido AS pe
 		ON c.id_cliente = pe.id_cliente
-	INNER JOIN pedido_item as pi
+	INNER JOIN pedido_item AS pi
 		ON pe.id_pedido = pi.id_pedido;
         
 -- 2
@@ -1918,4 +1918,117 @@ SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
 	WHERE c.ativo = 1 AND
     pe.data_pedido BETWEEN '2026-01-01' AND '2026-12-31';
     
+-- EXERCICIO 36 
+
+-- 1 
+SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, pi.quantidade, pi.preco_unitario
+	FROM cliente AS c
+	INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto;
+
+-- 2
+SELECT  c.nome AS cliente, pe.data_pedido, p.nome AS produto, pi.quantidade, pi.preco_unitario
+	FROM cliente AS c
+	INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto
+	WHERE pi.quantidade > 1 AND pi.preco_unitario > 500;
     
+-- 37
+
+-- 1
+SELECT  p.nome AS produto, p.preco, p.estoque, c.nome AS categoria
+	FROM produto AS p
+	INNER JOIN categoria AS c
+		ON p.id_categoria = c.id_categoria;
+
+-- 2
+SELECT p.nome AS produto, p.preco, p.estoque, c.nome AS categoria
+	FROM produto AS p
+	INNER JOIN categoria AS c
+		ON p.id_categoria = c.id_categoria
+	WHERE c.nome IN ('Software', 'Segurança', 'Energia');
+    
+-- EXERCICIO 38
+
+-- 1
+SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, cat.nome AS categoria, pi.quantidade, pi.preco_unitario
+	FROM cliente AS c
+	INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto
+	INNER JOIN categoria AS cat
+		ON p.id_categoria = cat.id_categoria
+	ORDER BY cat.nome, p.nome, pe.data_pedido;
+
+-- 2
+SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, cat.nome AS categoria, pi.quantidade, pi.preco_unitario
+	FROM cliente AS c
+	INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto	
+	INNER JOIN categoria AS cat
+		ON p.id_categoria = cat.id_categoria
+	WHERE cat.nome IN ('Monitores', 'Software', 'Fotografia') AND c.ativo = 1
+	ORDER BY cat.nome, p.nome, pe.data_pedido;
+
+-- EXERCICIO 39
+
+-- 1
+SELECT c.id_cliente, c.nome, c.email
+	FROM cliente AS c
+	LEFT JOIN pedido AS p
+		ON c.id_cliente = p.id_cliente
+	WHERE p.id_cliente IS NULL
+	ORDER BY c.id_cliente;
+
+
+-- 2
+SELECT c.id_categoria, c.nome AS categoria
+	FROM categoria AS c
+	LEFT JOIN produto AS p
+		ON c.id_categoria = p.id_categoria
+	WHERE p.id_produto IS NULL
+	ORDER BY c.id_categoria;
+
+-- EXERCICIO 40
+
+-- 1
+SELECT c.nome AS cliente, pe.id_pedido, pe.data_pedido, p.nome AS produto, cat.nome AS categoria, pi.quantidade, pi.preco_unitario
+	FROM cliente AS c
+	INNER JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+	INNER JOIN pedido_item AS pi
+		ON pe.id_pedido = pi.id_pedido
+	INNER JOIN produto AS p
+		ON pi.id_produto = p.id_produto
+	INNER JOIN categoria AS cat
+		ON p.id_categoria = cat.id_categoria
+	ORDER BY pe.data_pedido DESC
+	LIMIT 50;
+
+-- 2
+SELECT c.id_cliente, c.nome AS cliente, pe.id_pedido, pe.data_pedido, pe.valor
+	FROM cliente AS c
+	LEFT JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente
+
+UNION
+
+SELECT c.id_cliente, c.nome AS cliente, pe.id_pedido, pe.data_pedido, pe.valor
+	FROM cliente AS c
+	RIGHT JOIN pedido AS pe
+		ON c.id_cliente = pe.id_cliente;
