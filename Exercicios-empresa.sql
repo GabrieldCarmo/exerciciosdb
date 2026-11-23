@@ -1909,14 +1909,13 @@ SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
 		ON pe.id_pedido = pi.id_pedido;
         
 -- 2
-SELECT c.nome AS cliente, pe.id_pedido, pi.id_produto, pi.quantidade
-	FROM cliente AS c
-    INNER JOIN pedido AS pe
+SELECT c.nome AS cliente, pe.id_pedido, pe.data_pedido, pi.id_produto, pi.quantidade
+	FROM pedido AS pe
+    INNER JOIN cliente AS c
 		ON c.id_cliente = pe.id_cliente
-	INNER JOIN pedido_item as pi
-		ON pe.id_pedido = pi.id_pedido
-	WHERE c.ativo = 1 AND
-    pe.data_pedido BETWEEN '2026-01-01' AND '2026-12-31';
+	INNER JOIN pedido_item AS pi
+		ON pi.id_pedido = pe.id_pedido
+	WHERE pe.data_pedido like '2026%' AND c.ativo = 1;
     
 -- EXERCICIO 36 
 
@@ -1969,7 +1968,7 @@ SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, cat.nome AS categor
 		ON pi.id_produto = p.id_produto
 	INNER JOIN categoria AS cat
 		ON p.id_categoria = cat.id_categoria
-	ORDER BY cat.nome, p.nome, pe.data_pedido;
+	ORDER BY cat.nome;
 
 -- 2
 SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, cat.nome AS categoria, pi.quantidade, pi.preco_unitario
@@ -1982,8 +1981,7 @@ SELECT c.nome AS cliente, pe.data_pedido, p.nome AS produto, cat.nome AS categor
 		ON pi.id_produto = p.id_produto	
 	INNER JOIN categoria AS cat
 		ON p.id_categoria = cat.id_categoria
-	WHERE cat.nome IN ('Monitores', 'Software', 'Fotografia') AND c.ativo = 1
-	ORDER BY cat.nome, p.nome, pe.data_pedido;
+	WHERE cat.nome IN ('Monitores', 'Software', 'Fotografia') AND c.ativo = 1;
 
 -- EXERCICIO 39
 
